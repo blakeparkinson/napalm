@@ -36,6 +36,13 @@ gulp.task('install', ['git-check'], function() {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
 });
+// inject bower components
+gulp.task('wiredep', function () {
+  var wiredep = require('wiredep').stream;
+  gulp.src('www/*.html')
+    .pipe(wiredep())
+    .pipe(gulp.dest('www'));
+});
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
